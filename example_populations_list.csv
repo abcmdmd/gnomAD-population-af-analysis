@@ -1,0 +1,38 @@
+dataset,genetic_ancestry_group,group_name,subpop_label
+HGDP,East Asian,OSEA,Cambodian
+HGDP,East Asian,OSEA,Lahu
+HGDP,East Asian,OSEA,Dai
+HGDP,Oceanian,OSEA,Bougainville
+HGDP,Central/South Asian,OSEA,Uygur
+HGDP,East Asian,OSEA,Yakut
+HGDP,Oceanian,OSEA,Papuan (Highlands)
+HGDP,Oceanian,OSEA,Papuan (Sepik)
+HGDP,East Asian,East Asia,Miao
+HGDP,East Asian,East Asia,She
+HGDP,East Asian,East Asia,Tujia
+HGDP,East Asian,East Asia,Han
+HGDP,East Asian,East Asia,Naxi
+HGDP,East Asian,East Asia,Yi
+HGDP,East Asian,East Asia,Tu
+HGDP,East Asian,East Asia,Dai
+HGDP,East Asian,East Asia,Japanese
+HGDP,East Asian,Northeast Asia,Northern Han
+HGDP,East Asian,Northeast Asia,Daur
+HGDP,East Asian,Northeast Asia,Hezhen
+HGDP,East Asian,Northeast Asia,Oroqen
+HGDP,East Asian,Northeast Asia,Xibo
+gnomAD,European (non-Finnish),gnomAD_EUR,Overall
+gnomAD,African/African American,gnomAD_AFR,Overall
+gnomAD,East Asian,gnomAD_EAS,Overall
+gnomAD,Admixed American,gnomAD_AMR,Overall
+gnomAD,South Asian, gnomAD_SAS,Overall
+1KG,European,1KG_EUR,Overall
+1KG,African,1KG_AFR,Overall
+1KG,East Asian,1KG_EAS,Overall
+1KG,South Asian,1KG_SAS,Overall
+1KG,Admixed American,1KG_AMR,Overall
+1KG,East Asian,1KG_EAS_CDX,"Chinese Dai in Xishuangbanna, China"
+1KG,East Asian,1KG_EAS_CHB,"Kinh in Ho Chi Minh City, Vietnam"
+1KG,East Asian,1KG_EAS_CHS,"Han Chinese in Beijing, China"
+1KG,East Asian,1KG_EAS_JPT,"Japanese in Tokyo, Japan"
+1KG,East Asian,1KG_EAS_KHV,"Southern Han Chinese"
