@@ -24,11 +24,6 @@ parser.add_argument("new_output_foldername", help=("Folder name for these output
 parser.add_argument("beta_weighting", help=("Whether to apply beta-weighting to risk allele counts: 'yes' or 'no'; default 'no'"), nargs='?', default='no')
 args = parser.parse_args()
 
-"""
-example usage
-python /Users/ainemacdermott/PersonalProjects/dyslipidemia/final_package/4_count_stats.py /Users/ainemacdermott/PersonalProjects/dyslipidemia/final_package/example_snp.csv example 251226 251226_stats
-"""
-
 pD = os.path.dirname(os.path.abspath(__file__))
 snp_file = args.snp_file
 actual_output_file_folder = (pD + "/" + args.new_output_foldername) if args.new_output_foldername else (pD + "stats")
@@ -37,17 +32,6 @@ input_file = (pD + "/" + input_intermeds_filename + "_AF_reformatted.csv")
 input_file2 = (pD + "/" + input_intermeds_filename + "_grouped_AF.csv")
 beta_weighting = False if args.beta_weighting.lower() != 'yes' and args.beta_weighting.lower() != 'y' and args.beta_weighting.lower() == None else True
 
-"""
-input_file = "/Users/ainemacdermott/PersonalProjects/dyslipidemia/final_package/example_AF_reformatted_output.csv"
-input_file2 = "/Users/ainemacdermott/PersonalProjects/dyslipidemia/final_package/example_final_output.csv"
-snp_file = "/Users/ainemacdermott/PersonalProjects/dyslipidemia/final_package/example_snp.csv"
-input_intermeds_filename = "example"
-pD = "/Users/ainemacdermott/PersonalProjects/dyslipidemia/final_package/"
-
-actual_output_file_folder = "/Users/ainemacdermott/PersonalProjects/dyslipidemia/final_package/stats"
-#actual_output_file = f"{actual_output_file_folder}/{snp_id}_risk_analysis_output.csv"
-
-"""
 input = pd.read_csv(input_file)
 snp = pd.read_csv(snp_file)
 af_output_file = pd.read_csv(pD + "/" + input_intermeds_filename + "_AF_reformatted.csv")
