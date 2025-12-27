@@ -3,12 +3,11 @@ Scrapes population-specific allele/genotype frequencies from the gnomAD website 
 
 # Overview
 1. Input file instructions
-2. "One-and-done" script instructions
-3. Scrape allele count data from the genome frequency site
-4. Calculate aggregated allele frequencies & genotype counts
-5. Reformat into analysis-ready wide tables (AF / allele counts / genotype counts)
-6. Run statistical tests vs gnomAD_EUR per SNP + write per-SNP result tables
-7. Caclculate a cumulative risk summary across SNPs (optional beta weighting)
+2. Scrape allele count data from the genome frequency site
+3. Calculate aggregated allele frequencies & genotype counts
+4. Reformat into analysis-ready wide tables (AF / allele counts / genotype counts)
+5. Run statistical tests vs gnomAD_EUR per SNP + write per-SNP result tables
+6. Caclculate a cumulative risk summary across SNPs (optional beta weighting)
 
 ## 1. Input file instructions
 ### Populations file (csv)
@@ -18,6 +17,8 @@ Reference for subpopulation availability: https://gnomad.broadinstitute.org/vari
 - **genetic_ancestry_group**: Genetic ancestry group corresponding to that subpopulation as listed on website.
 - **group_name**: The name of the overarching group that each population All subpopulations that share the same group label will be summed together (allele counts and genotype counts).
 - **subpop_label**: Name of subpopulation label as listed on website.
+
+See: **example_populations_list.csv**
   
 **Important requirements**
 1. Spelling and spacing must match the scraped labels exactly.
@@ -32,10 +33,9 @@ Reference for subpopulation availability: https://gnomad.broadinstitute.org/vari
 - **beta**: effect size magnitude for the effect allele (your current code treats this as a float; interpretation is yours—GWAS beta, meta-analysis beta, etc.).
 - **directionality**: whether the effect allele increases (+) or decreases (-) the trait being studied.
 
-## 2. "One-and-done" script instructions
-WIP--coming soon(ish)
+See: **example_snp.csv**
 
-## 3. Scrape allele count data from the genome frequency site (1_scrape_gnomad_af.py)
+## 2. Scrape allele count data from the genome frequency site (1_scrape_gnomad_af.py)
 Pull per-population allele count information for every SNP from the online resource, without downloading huge public datasets.
 
 1. First you'll need to install the required packages:
@@ -45,12 +45,16 @@ Pull per-population allele count information for every SNP from the online resou
 (You’ll also need a compatible Chrome/Chromedriver; webdriver-manager usually handles this.)
 
 2. Run the script
-`python scrape_gnomad_af.py populations.csv snps.csv intermediate.csv`
+`python scrape_gnomad_af.py populations.csv snps.csv prefix`
 
 This will: 
 - Open an automated Chrome instance
 - Visit SNP pages and scrape population-level counts
-- Produce an intermediate csv with the raw scraping output
+- Produce an intermediate csv with the raw scraping output --> '{prefix}_raw_scrape_data.csv'
+
+**Notes**: 
+1. This will take a minute...
+2. Make sure to check the outputs to ensure that you got data for each SNP and population you were trying to scrape data for.
 
 **Troubleshooting**: 
 If the scrape fails for a SNP, you’ll usually see missing/empty values in the later columns for that SNP. This is likely a mismatch in:
@@ -58,29 +62,30 @@ If the scrape fails for a SNP, you’ll usually see missing/empty values in the 
 - ref/alt alleles
 - build version
 
-## 4. Calculate aggregated allele frequencies & genotype counts (2_calc_allele_freqs.py)
+## 3. Calculate aggregated allele frequencies & genotype counts (2_calc_allele_freqs.py)
 This will convert the file from the previous step into: aggregated allele and genotype counts/frequencies
 
-`python calc_allele_freqs.py populations.csv snps.csv intermediate.csv final_output.csv`
+`python calc_allele_freqs.py populations.csv snps.csv prefix`
 
+This will produce: {prefix}_grouped_AF.csv
 
-## 5. Reformat into wide tables (3_reframe_allele_freqs.py)
+## 4. Reformat into wide tables (3_reframe_allele_freqs.py)
 This will create wide tables containing allele/genotype frequencies/counts.
 
-`python reframe_allele_freqs.py final_output.csv`
+`python reframe_allele_freqs.py prefix`
 
 Produces **3** output files:
-1. **prefix_AF_reformatted_output.csv**:Alternate allele frequency per population/group (wide format).
-2. **prefix_allele_count_reformatted_output.csv**: Allele counts per SNP per population/group (wide format). This file is also the key input for allele-count statistical testing.
-3. **prefix_genotype_count_reformatted_output.csv**: Genotype counts per SNP per population/group (wide format). This file is also the key input for genotype-count statistical testing.
+1. **prefix_AF_reformatted.csv**:Alternate allele frequency per population/group (wide format).
+2. **prefix_allele_count_reformatted.csv**: Allele counts per SNP per population/group (wide format). This file is also the key input for allele-count statistical testing.
+3. **prefix_genotype_count_reformatted.csv**: Genotype counts per SNP per population/group (wide format). This file is also the key input for genotype-count statistical testing.
 
-## 6. Run statistical tests vs reference population per SNP + write per-SNP result tables + caclculate a cumulative risk summary across SNPs (with optional beta weighting) (4_count_stats.py)
+## 5. Run statistical tests vs reference population per SNP + write per-SNP result tables + caclculate a cumulative risk summary across SNPs (with optional beta weighting) (4_count_stats.py)
 This script performs per-SNP statistical comparisons vs a reference population (default: gnomAD_EUR) and writes multiple outputs into a folder.
 
-`python 4_count_stats.py snps.csv prefix output_prefix output_folder [beta_weighting yes/no]`
+`python 4_count_stats.py snps.csv prefix output_folder [beta_weighting yes/no]`
 
 Input notes: 
-1. "prefix" must match the prefix used for the _allele_count_reformatted_output.csv and _final_output.csv inputs.
+1. "prefix" must match the prefix used previously
 2. output_folder is created automatically.
 3. beta_weighting toggles whether you compute the beta-weighted cumulative score.
 
@@ -128,3 +133,6 @@ Risk allele depends on directionality and is used in the risk summary functions,
     - Weighted_abs_score_sig increases iff the population differs more from the reference population in risk allele frequency and/or those differences occur at SNPs with larger effect sizes
     - Weighted_abs_score_sig_norm is a “per significant SNP” scaled score; approximately interpretable on a 0–1-ish scale
     - **Note**: because we're using absolute values for both beta and AF difference, this is a divergence metric, not a “higher risk burden” metric.
+
+
+Any questions, comments, and/or concerns? Email me at aineb4@gmail.com!
