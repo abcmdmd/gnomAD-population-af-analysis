@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+title: "gnomAD-population-af-analysis"
+message: "If you use this software, please cite it as below."
+type: software
+
+authors:
+  - family-names: MacDermott
+    given-names: Aine
+    affiliation: University of Richmond
+
+repository-code: "https://github.com/yourusername/gnomAD-population-af-analysis"
+
+keywords:
+  - population genetics
+  - allele frequency
+  - gnomAD
+  - polygenic risk
+  - genomics
+  - ancestry
+
+abstract: >
+  A short pipeline for scraping gnomAD allele counts, aggregating subpopulations into 
+  custom population groupings, performing per-variant statistical testing against reference 
+  populations, and calculating cumulative polygenic divergence metrics (with optional beta-weighted modeling).
+
+license: MIT
