@@ -16,12 +16,6 @@ PREFIX = args.prefix
 allele_count_file= f"{pD}/{PREFIX}_raw_scrape_data.csv"
 output_filename = f"{pD}/{PREFIX}_grouped_AF.csv"
 
-"""
-example usage: 
-python /Users/ainemacdermott/PersonalProjects/dyslipidemia/calc_allele_freqs.py /Users/ainemacdermott/PersonalProjects/dyslipidemia/populations_list.csv /Users/ainemacdermott/PersonalProjects/dyslipidemia/example_snp.csv /Users/ainemacdermott/PersonalProjects/dyslipidemia/example_intermediate_output.csv /Users/ainemacdermott/PersonalProjects/dyslipidemia/example_final_output.csv
-
-"""
-
 import pandas as pd
 
 def main(
